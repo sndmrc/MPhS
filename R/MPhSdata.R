@@ -1,0 +1,22 @@
+#' R Objects from the molecular phenology scale (MPhS) proposed by Tornielli, Sandri, Fasoli, et al (2023)
+#'
+#' @author Marco Sandri, Paola Zuccolotto (\email{sandri.marco@gmail.com})
+#' @description In this file, there are all the objects required for projecting a new dataset onto the MPhS.
+#' @references G.B. Tornielli, M. Sandri, M. Fasoli, A. Amato, M. Pezzotti, P. Zuccolotto and S. Zenoni. 
+#' A molecular phenology scale of grape berry development. 
+#' Horticulture Research, 2023, 10: uhad048
+#' @usage data(MPhSdata)
+#' @format 
+#' A list containing the following R objects:
+#' \describe{
+#'   \item{pca}{A prcomp object}
+#'   \item{means}{A numeric vector of 10129 mean values from the original dataset of Tornielli et al. (2023)}
+#'   \item{sds}{A numeric vector of 10129 standard deviations from the original dataset of Tornielli et al. (2023)}
+#'   \item{raw_data_scores}{Raw data of Tornielli et al. (2023) projected onto the PCA space}
+#'   \item{smooth_data_scores}{Smoothed data of Tornielli et al. (2023) projected onto the PCA space}
+#' }
+#' @examples
+#' data(MPhSdata)
+#' plot(MPhSdata$pca)
+#' @source <https://doi.org/10.1093/hr/uhad048>
+"MPhSdata"
