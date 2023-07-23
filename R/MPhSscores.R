@@ -3,6 +3,7 @@
 #' @author Marco Sandri, Paola Zuccolotto (\email{sandri.marco@gmail.com})
 #' @param data numeric data frame.
 #' @param scaling_type character, type of scaling of gene expressions. Available options: \code{none}, \code{scale} (default), \code{means_SDs}.
+#' @param gene_keyword character, a keyword used to identify all the columns of \code{data} that refers to gene expression (default \code{"VIT_"})
 #' @details The \code{MPhSscores} function performs a preliminary standardization of columns in \code{data}.
 #' @seealso \code{\link[stats]{hclust}}
 #' @references 
@@ -14,7 +15,7 @@
 #' @export
 #' @importFrom dplyr '%>%'
 
-MPhSscores <- function(data, scaling_type="scale") {
+MPhSscores <- function(data, scaling_type="scale", gene_keyword="VIT_") {
   
   MPhSdata <- NULL
   data_path <- system.file("data", "MPhSdata.rda", package="MPhS")
@@ -22,7 +23,7 @@ MPhSscores <- function(data, scaling_type="scale") {
   pca_rot_matrix <- MPhSdata$pca$rotation
   
   # Filtering: Retaining only columns that contain gene expression data
-  find_gene_cols <- grepl("VIT_",names(data))
+  find_gene_cols <- grepl(gene_keyword, names(data))
   X <- data[, find_gene_cols]
 
   # Gene scaling 
@@ -46,7 +47,7 @@ MPhSscores <- function(data, scaling_type="scale") {
   # Applying PCA: Projecting the data onto the principal component subspace  
   scores <- as.matrix(X) %*% as.matrix(pca_rot_matrix)
 
-  out <- list(scores=scores)
+  out <- list(scores=scores, no_genes=ncol(X))
   return(out)
 }
 

@@ -16,13 +16,10 @@ URL: https://bodai.unibs.it/, https://github.com/sndmrc/MPhS/
 BugReports: https://github.com/sndmrc/MPhS/issues
 Contact: <sandri.marco@gmail.com>
 Depends:
-    R (>= 4.2),
-    ggplot2 (>= 3.4.0)
+    R (>= 4.2)
 Imports: 
     dplyr (>= 0.7.6),
-    mathjaxr (>= 1.6),
-    grDevices,
-    graphics
-RdMacros: mathjaxr 
+    ggplot2 (>= 3.4),
+    ggrepel (>= 0.9)
 RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)

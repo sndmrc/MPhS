@@ -2,7 +2,10 @@
 #'
 #' @author Marco Sandri, Paola Zuccolotto (\email{sandri.marco@gmail.com})
 #' @param data numeric data frame.
+#' @param strata_var vector of character, the name of stratification variable(s)
+#' @param stage_var, character, the name of variable defining development (stage)
 #' @param scaling_type character, type of scaling of gene expressions. Available options: \code{none}, \code{scale} (default), \code{means_SDs}.
+#' @param gene_keyword character, a keyword used to identify all the columns of \code{data} that refers to gene expression (default \code{"VIT_"})
 #' @details The \code{MPhSscores} function performs a preliminary standardization of columns in \code{data}.
 #' @seealso \code{\link[stats]{hclust}}
 #' @references 
@@ -15,7 +18,7 @@
 #' @importFrom stats 'lm'
 #' @importFrom stats 'predict'
 
-MPhStimepoints <- function(data, scaling_type="scale") {
+MPhStimepoints <- function(data, strata_var, stage_var, scaling_type="scale", gene_keyword="VIT_") {
   
   MPhSdata <- NULL
   data_path <- system.file("data", "MPhSdata.rda", package="MPhS")
@@ -24,19 +27,29 @@ MPhStimepoints <- function(data, scaling_type="scale") {
   raw_data_scores <- MPhSdata$raw_data_scores
   smooth_data_scores <- MPhSdata$smooth_data_scores
   MPhSpcs <- MPhSdata$MPhSpcs
+  MPhSpts <- MPhSdata$MPhSpts
+  no_pts  <- nrow(MPhSpts)
 
-  scores <- MPhSscores(data, scaling_type=scaling_type)
-    
+  scores <- MPhSscores(data, scaling_type=scaling_type, gene_keyword=gene_keyword)
+  
   pred_scores <- sapply(1:3, function(k) {
     df <- data.frame(y=smooth_data_scores[,MPhSpcs[k]], 
                      x=raw_data_scores[,MPhSpcs[k]])
     lmfit <- lm(y~x, data=df)
-    df_new <- data.frame(x=scores[, MPhSpcs[k]])
+    df_new <- data.frame(x=scores$scores[, MPhSpcs[k]])
     predict(lmfit, newdata=df_new)
   }) %>%
-    as.data.frame()  
+  as.data.frame()  
   
-  out <- list(pred_scores=pred_scores)
+  pred_scores$timepoint <- 
+    MPhS_time_pts(pred_scores, t(MPhSpts[, c("x1","x2","x3")]), MPhSpts$timepoint)
+  
+  strata <- data[, strata_var, drop=F]
+  pred_scores <- cbind(pred_scores, strata, stage=data[,stage_var])
+  pred_scores$strata <- as.character(interaction(as.list(strata), sep=" - "))
+
+  out <- list(pred_scores=pred_scores, no_genes=scores$no_genes, no_MPhS_pts=no_pts)
+  class(out) <- c("MPhStimepoints", class(out))
   return(out)
 }
 
@@ -46,7 +59,7 @@ distxMtx <- function(X, y) {
 }
 
 #' @noRd
-MPhStime <- function(X, MPhSdata, timepoints) {
+MPhS_time_pts <- function(X, MPhSdata, timepoints) {
   apply(X, 1, 
         function(x, data, time) {
           posmin <- which.min(distxMtx(data, x))

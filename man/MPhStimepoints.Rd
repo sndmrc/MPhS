@@ -4,12 +4,24 @@
 \alias{MPhStimepoints}
 \title{Project data onto the MPhS subspace}
 \usage{
-MPhStimepoints(data, scaling_type = "scale")
+MPhStimepoints(
+  data,
+  strata_var,
+  stage_var,
+  scaling_type = "scale",
+  gene_keyword = "VIT_"
+)
 }
 \arguments{
 \item{data}{numeric data frame.}
 
+\item{strata_var}{vector of character, the name of stratification variable(s)}
+
+\item{stage_var, }{character, the name of variable defining development (stage)}
+
 \item{scaling_type}{character, type of scaling of gene expressions. Available options: \code{none}, \code{scale} (default), \code{means_SDs}.}
+
+\item{gene_keyword}{character, a keyword used to identify all the columns of \code{data} that refers to gene expression (default \code{"VIT_"})}
 }
 \value{
 A \code{hclustering} object.
