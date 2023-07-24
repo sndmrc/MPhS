@@ -15,18 +15,16 @@ MPhStimepoints(
 \arguments{
 \item{data}{numeric data frame.}
 
-\item{strata_var}{vector of character, the name of stratification variable(s)}
+\item{strata_var}{vector of character, the name of the stratification variable(s)}
 
-\item{stage_var, }{character, the name of variable defining development (stage)}
+\item{stage_var, }{character, the name of the variable defining fruit development (stage)}
 
-\item{scaling_type}{character, type of scaling of gene expressions. Available options: \code{none}, \code{scale} (default), \code{means_SDs}.}
+\item{scaling_type}{character, type of scaling of gene expressions. Available options: \code{"none"}, \code{"scale"} (default), \code{"means_SDs"}.}
 
 \item{gene_keyword}{character, a keyword used to identify all the columns of \code{data} that refers to gene expression (default \code{"VIT_"})}
 }
 \value{
-A \code{hclustering} object.
-
-If \code{k} is \code{NULL}, the \code{hclustering} object is a list of 3 elements:
+An object of class \code{MPhStimepoints} (a list).
 }
 \description{
 Project data onto the MPhS subspace
@@ -40,7 +38,7 @@ A molecular phenology scale of grape berry development.
 Horticulture Research, 2023, 10: uhad048
 }
 \seealso{
-\code{\link[stats]{hclust}}
+\code{\link[MPhS]{plot.MPhStimepoints}}
 }
 \author{
 Marco Sandri, Paola Zuccolotto (\email{sandri.marco@gmail.com})

@@ -2,18 +2,17 @@
 #'
 #' @author Marco Sandri, Paola Zuccolotto (\email{sandri.marco@gmail.com})
 #' @param data numeric data frame.
-#' @param strata_var vector of character, the name of stratification variable(s)
-#' @param stage_var, character, the name of variable defining development (stage)
-#' @param scaling_type character, type of scaling of gene expressions. Available options: \code{none}, \code{scale} (default), \code{means_SDs}.
+#' @param strata_var vector of character, the name of the stratification variable(s)
+#' @param stage_var, character, the name of the variable defining fruit development (stage)
+#' @param scaling_type character, type of scaling of gene expressions. Available options: \code{"none"}, \code{"scale"} (default), \code{"means_SDs"}.
 #' @param gene_keyword character, a keyword used to identify all the columns of \code{data} that refers to gene expression (default \code{"VIT_"})
 #' @details The \code{MPhSscores} function performs a preliminary standardization of columns in \code{data}.
-#' @seealso \code{\link[stats]{hclust}}
+#' @seealso \code{\link[MPhS]{plot.MPhStimepoints}}
 #' @references 
 #' G.B. Tornielli, M. Sandri, M. Fasoli, A. Amato, M. Pezzotti, P. Zuccolotto and S. Zenoni. 
 #' A molecular phenology scale of grape berry development. 
 #' Horticulture Research, 2023, 10: uhad048
-#' @return A \code{hclustering} object.
-#' @return If \code{k} is \code{NULL}, the \code{hclustering} object is a list of 3 elements:
+#' @return An object of class \code{MPhStimepoints} (a list).
 #' @export
 #' @importFrom stats 'lm'
 #' @importFrom stats 'predict'
@@ -48,7 +47,8 @@ MPhStimepoints <- function(data, strata_var, stage_var, scaling_type="scale", ge
   pred_scores <- cbind(pred_scores, strata, stage=data[,stage_var])
   pred_scores$strata <- as.character(interaction(as.list(strata), sep=" - "))
 
-  out <- list(pred_scores=pred_scores, no_genes=scores$no_genes, no_MPhS_pts=no_pts)
+  out <- list(pred_scores=pred_scores, no_genes=scores$no_genes, no_MPhS_pts=no_pts, 
+              strata_var=strata_var, stage_var=stage_var)
   class(out) <- c("MPhStimepoints", class(out))
   return(out)
 }

@@ -5,13 +5,12 @@
 #' @param scaling_type character, type of scaling of gene expressions. Available options: \code{none}, \code{scale} (default), \code{means_SDs}.
 #' @param gene_keyword character, a keyword used to identify all the columns of \code{data} that refers to gene expression (default \code{"VIT_"})
 #' @details The \code{MPhSscores} function performs a preliminary standardization of columns in \code{data}.
-#' @seealso \code{\link[stats]{hclust}}
+#' @seealso \code{\link[MPhS]{MPhStimepoints}}
 #' @references 
 #' G.B. Tornielli, M. Sandri, M. Fasoli, A. Amato, M. Pezzotti, P. Zuccolotto and S. Zenoni. 
 #' A molecular phenology scale of grape berry development. 
 #' Horticulture Research, 2023, 10: uhad048
-#' @return A \code{hclustering} object.
-#' @return If \code{k} is \code{NULL}, the \code{hclustering} object is a list of 3 elements:
+#' @return A list.
 #' @export
 #' @importFrom dplyr '%>%'
 

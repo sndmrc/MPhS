@@ -14,9 +14,7 @@ MPhSscores(data, scaling_type = "scale", gene_keyword = "VIT_")
 \item{gene_keyword}{character, a keyword used to identify all the columns of \code{data} that refers to gene expression (default \code{"VIT_"})}
 }
 \value{
-A \code{hclustering} object.
-
-If \code{k} is \code{NULL}, the \code{hclustering} object is a list of 3 elements:
+A list.
 }
 \description{
 Project data onto the MPhS subspace
@@ -30,7 +28,7 @@ A molecular phenology scale of grape berry development.
 Horticulture Research, 2023, 10: uhad048
 }
 \seealso{
-\code{\link[stats]{hclust}}
+\code{\link[MPhS]{MPhStimepoints}}
 }
 \author{
 Marco Sandri, Paola Zuccolotto (\email{sandri.marco@gmail.com})
