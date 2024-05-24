@@ -29,6 +29,7 @@ MPhStimepoints <- function(data, strata_var, stage_var, scaling_type="scale", ge
   MPhSpts <- MPhSdata$MPhSpts
   no_pts  <- nrow(MPhSpts)
 
+  data <- as.data.frame(data)
   scores <- MPhSscores(data, scaling_type=scaling_type, gene_keyword=gene_keyword)
   
   pred_scores <- sapply(1:3, function(k) {
@@ -42,9 +43,11 @@ MPhStimepoints <- function(data, strata_var, stage_var, scaling_type="scale", ge
   
   pred_scores$timepoint <- 
     MPhS_time_pts(pred_scores, t(MPhSpts[, c("x1","x2","x3")]), MPhSpts$timepoint)
-  
-  strata <- data[, strata_var, drop=F]
-  pred_scores <- cbind(pred_scores, strata, stage=data[,stage_var])
+  names_pred_scores <- names(pred_scores)
+
+  strata <- data[, strata_var, drop=F]  
+  pred_scores <- cbind(pred_scores, strata, data[, stage_var])
+  names(pred_scores) <- c(names_pred_scores, strata_var, stage_var)
   pred_scores$strata <- as.character(interaction(as.list(strata), sep=" - "))
 
   out <- list(pred_scores=pred_scores, no_genes=scores$no_genes, no_MPhS_pts=no_pts, 

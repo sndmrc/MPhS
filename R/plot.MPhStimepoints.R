@@ -27,8 +27,8 @@
 #' @importFrom ggplot2 element_blank
 #' @importFrom ggrepel geom_label_repel
 #' @importFrom stats as.formula
-#' 
-#' 
+#' @importFrom rlang sym
+#' @importFrom rlang !!
 
 plot.MPhStimepoints <- function(x, title=NULL, ylim=c(-0.015, 0.015), ncol=1, ...) {
   
@@ -41,17 +41,18 @@ plot.MPhStimepoints <- function(x, title=NULL, ylim=c(-0.015, 0.015), ncol=1, ..
                        x=rep(1:npts,each=2), 
                        y=rep(c(0,-0.001), npts))
   
-  strvar <- x$strata_var
-  if (length(strvar)==1) {
-    facet_formula <- as.formula(paste0(strvar,"~."))
+  stratavar <- x$strata_var
+  stagevar <- x$stage_var 
+  if (length(stratavar)==1) {
+    facet_formula <- as.formula(paste0(stratavar,"~."))
   } else {
-    facet_formula <- as.formula(paste0(strvar[1],"~",paste0(strvar[-1], collapse="+")))
+    facet_formula <- as.formula(paste0(stratavar[1],"~",paste0(stratavar[-1], collapse="+")))
   }
   
   p <- ggplot() +
     geom_path(data=df.ln,  aes(x=x, y=y), linewidth=1, alpha=0.5, inherit.aes=F, show.legend=F)  +
     geom_path(data=df.tks, aes(x=x, y=y, group=tmpts), linewidth=1, alpha=0.5, inherit.aes=F, show.legend=F)  +
-    geom_label_repel(data=MPhS_pts, aes(x=timepoint, y=0, label=stage), size=4, nudge_y=-0.003, 
+    geom_label_repel(data=MPhS_pts, aes(x=timepoint, y=0, label=!!sym(stagevar)), size=4, nudge_y=-0.003, 
                      angle=0, direction="y", force=10) +
     facet_wrap(facet_formula, ncol=ncol) +
     labs(x="MPhS", y="", title=title) +
