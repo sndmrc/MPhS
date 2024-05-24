@@ -4,7 +4,7 @@
 \alias{plot.MPhStimepoints}
 \title{Plot data of class MPhStimepoints}
 \usage{
-\method{plot}{MPhStimepoints}(x, title = NULL, ylim = c(-0.015, 0.015), ncol = 1, ...)
+\method{plot}{MPhStimepoints}(x, title = NULL, ylim = c(-0.015, 0.015), ncol = 1, nudge_y = 0.005, ...)
 }
 \arguments{
 \item{x}{object of class \code{MPhStimepoints}}
@@ -14,6 +14,8 @@
 \item{ylim}{numeric vector, a vector with two numeric values, specifying the lower and upper limits of the scale}
 
 \item{ncol}{numerical, number of rows for the sequence of panels (default \code{ncol=1})}
+
+\item{nudge_y}{numerical, vertical adjustments to nudge the starting position of each text label}
 
 \item{...}{other graphical parameters (not yet implemented)}
 }

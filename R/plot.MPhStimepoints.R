@@ -5,6 +5,7 @@
 #' @param title character, plot title
 #' @param ylim numeric vector, a vector with two numeric values, specifying the lower and upper limits of the scale
 #' @param ncol numerical, number of rows for the sequence of panels (default \code{ncol=1})
+#' @param nudge_y numerical, vertical adjustments to nudge the starting position of each text label
 #' @param ... other graphical parameters (not yet implemented)
 #' @details The \code{plot} function visualizes the output of \code{MPhStimepoints} (i.e. the data projected onto the MPhS scale).
 #' @seealso \code{\link[MPhS]{MPhStimepoints}}
@@ -29,8 +30,11 @@
 #' @importFrom stats as.formula
 #' @importFrom rlang sym
 #' @importFrom rlang !!
+#' @importFrom dplyr arrange
+#' @importFrom dplyr all_of
+#' @importFrom dplyr across 
 
-plot.MPhStimepoints <- function(x, title=NULL, ylim=c(-0.015, 0.015), ncol=1, ...) {
+plot.MPhStimepoints <- function(x, title=NULL, ylim=c(-0.015, 0.015), ncol=1, nudge_y=0.005, ...) {
   
   y <- tmpts <- timepoint <- stage <- NULL
   MPhS_pts <- x$pred_scores  
@@ -49,11 +53,13 @@ plot.MPhStimepoints <- function(x, title=NULL, ylim=c(-0.015, 0.015), ncol=1, ..
     facet_formula <- as.formula(paste0(stratavar[1],"~",paste0(stratavar[-1], collapse="+")))
   }
   
+  MPhS_pts <- MPhS_pts %>% arrange(across(all_of(c(stratavar, "timepoint"))))
   p <- ggplot() +
     geom_path(data=df.ln,  aes(x=x, y=y), linewidth=1, alpha=0.5, inherit.aes=F, show.legend=F)  +
     geom_path(data=df.tks, aes(x=x, y=y, group=tmpts), linewidth=1, alpha=0.5, inherit.aes=F, show.legend=F)  +
-    geom_label_repel(data=MPhS_pts, aes(x=timepoint, y=0, label=!!sym(stagevar)), size=4, nudge_y=-0.003, 
-                     angle=0, direction="y", force=10) +
+    geom_label_repel(data=MPhS_pts, aes(x=timepoint, y=0, label=!!sym(stagevar)), size=4, 
+                     nudge_y = ifelse(seq_along(MPhS_pts$timepoint) %% 2 == 0, nudge_y, -nudge_y),
+                     angle=0, direction="y", force=1) +
     facet_wrap(facet_formula, ncol=ncol) +
     labs(x="MPhS", y="", title=title) +
     scale_x_continuous(breaks=1:npts) +
