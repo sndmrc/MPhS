@@ -32,7 +32,7 @@ MPhStimepoints <- function(data, strata_var, stage_var, scaling_type="scale", ge
   data <- as.data.frame(data)
   scores <- MPhSscores(data, scaling_type=scaling_type, gene_keyword=gene_keyword)
   
-  pred_scores <- sapply(1:3, function(k) {
+  PCscores <- sapply(1:3, function(k) {
     df <- data.frame(y=smooth_data_scores[,MPhSpcs[k]], 
                      x=raw_data_scores[,MPhSpcs[k]])
     lmfit <- lm(y~x, data=df)
@@ -41,16 +41,16 @@ MPhStimepoints <- function(data, strata_var, stage_var, scaling_type="scale", ge
   }) %>%
   as.data.frame()  
   
-  pred_scores$timepoint <- 
-    MPhS_time_pts(pred_scores, t(MPhSpts[, c("x1","x2","x3")]), MPhSpts$timepoint)
-  names_pred_scores <- names(pred_scores)
+  PCscores$timepoint <- 
+    MPhS_time_pts(PCscores, t(MPhSpts[, c("x1","x2","x3")]), MPhSpts$timepoint)
+  names_PCscores <- names(PCscores)
 
   strata <- data[, strata_var, drop=F]  
-  pred_scores <- cbind(pred_scores, strata, data[, stage_var])
-  names(pred_scores) <- c(names_pred_scores, strata_var, stage_var)
-  pred_scores$strata <- as.character(interaction(as.list(strata), sep=" - "))
+  PCscores <- cbind(PCscores, strata, data[, stage_var])
+  names(PCscores) <- c(names_PCscores, strata_var, stage_var)
+  PCscores$strata <- as.character(interaction(as.list(strata), sep=" - "))
 
-  out <- list(pred_scores=pred_scores, no_genes=scores$no_genes, no_MPhS_pts=no_pts, 
+  out <- list(PCscores=PCscores, no_genes=scores$no_genes, no_MPhS_pts=no_pts, 
               strata_var=strata_var, stage_var=stage_var)
   class(out) <- c("MPhStimepoints", class(out))
   return(out)

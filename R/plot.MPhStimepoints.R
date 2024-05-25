@@ -37,7 +37,7 @@
 plot.MPhStimepoints <- function(x, title=NULL, ylim=c(-0.015, 0.015), ncol=1, nudge_y=0.005, ...) {
   
   y <- tmpts <- timepoint <- stage <- NULL
-  MPhS_pts <- x$pred_scores  
+  MPhS_pts <- x$PCscores  
   no_genes <- x$no_genes
   npts     <- x$no_MPhS_pts
   df.ln  <- data.frame(x=c(1,npts), y=c(0,0))
