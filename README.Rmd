@@ -14,11 +14,13 @@ knitr::opts_chunk$set(
 ```
 
 # MPhS
-
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of MPhS is to ...
+With the `MPhS` package, the user can map their transcriptomic dataset onto the Molecular Phenology Scale (MPhS) proposed by
+Tornielli GB, Sandri M, Fasoli M, Amato A, Pezzotti M, Zuccolotto P, Zenoni S (2023) 
+A molecular phenology scale of grape berry development. Hortic Res 10 (5):uhad048.
+doi:10.1093/hr/uhad048
 
 ## Installation
 
@@ -37,7 +39,6 @@ This is a basic example which shows you how to solve a common problem:
 library(MPhS)
 ## basic example code
 ```
-
 
 You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
 
