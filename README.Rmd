@@ -34,19 +34,42 @@ pak::pak("sndmrc/MPhS")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example that shows you how to map the RPKMdata dataset (included in the package) onto the MPhS.
 
 ```{r example}
+# Load libraries and data
 library(MPhS)
-## basic example code
-```
+library(tidyr)
+library(dplyr)
+data("RPKMdata")
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
+# Preprocess data
+# Create variables representing the experimental conditions and 
+# a variable that defines the maturation stage.
+exp_cond <- names(RPKMdata)[-1]
+genes <- RPKMdata$gene_id
+dts_vars <- data.frame(exp_cond) %>%
+   separate(exp_cond, into=c("Cultivar", "Stage", "Replicate"), sep="_")
+
+# Transpose the gene expression matrix and add the newly derived variables.
+dts <- t(RPKMdata[, -1])
+dts <- cbind(dts, dts_vars)
+names(dts) <- c(genes, names(dts_vars))
+
+# Now, for each stage and each cultivar, calculate the mean value of the 3 replicates.
+dts_means <- dts %>%
+group_by(Cultivar, Stage) %>%
+summarize(across(all_of(genes), mean))
+
+# Map data onto the transcriptomic scale
+MPhS_out <- MPhStimepoints(data=dts_means,
+strata_var="Cultivar", stage_var="Stage")
+```
 
 You can also embed plots, for example:
 
-```{r pressure, echo = FALSE}
-plot(pressure)
+```{r plot, echo = FALSE}
+p <- plot(MPhS_out)
+print(p)
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
