@@ -12,7 +12,7 @@ onto the Molecular Phenology Scale (MPhS) proposed by
 Tornielli GB, Sandri M, Fasoli M, Amato A, Pezzotti M, Zuccolotto P,
 Zenoni S (2023) A molecular phenology scale of grape berry development.
 Horticulture Research, Volume 10, Issue 5:uhad048.
-<a href="https://academic.oup.com/hr/article/10/5/uhad048/7077841" target="_blank">doi:10.1093/hr/uhad04</a>
+<a href="https://academic.oup.com/hr/article/10/5/uhad048/7077841" target="_blank">doi:10.1093/hr/uhad048</a>
 
 ## Installation
 
