@@ -7,10 +7,11 @@
 <!-- badges: end -->
 
 With the `MPhS` package, the user can map their transcriptomic dataset
-onto the Molecular Phenology Scale (MPhS) proposed by Tornielli GB,
-Sandri M, Fasoli M, Amato A, Pezzotti M, Zuccolotto P, Zenoni S (2023) A
-molecular phenology scale of grape berry development. Hortic Res 10
-(5):uhad048. <doi:10.1093/hr/uhad048>
+onto the Molecular Phenology Scale (MPhS) proposed by
+
+Tornielli GB, Sandri M, Fasoli M, Amato A, Pezzotti M, Zuccolotto P,
+Zenoni S (2023) A molecular phenology scale of grape berry development.
+Hortic Res 10 (5):uhad048. <doi:10.1093/hr/uhad048>
 
 ## Installation
 
