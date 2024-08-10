@@ -29,8 +29,9 @@ pak::pak("sndmrc/MPhS")
 This is a basic example that shows you how to map the RPKMdata dataset
 (included in the package) onto the MPhS.
 
+Load libraries and data
+
 ``` r
-# Load libraries and data
 library(MPhS)
 library(tidyr)
 library(dplyr)
@@ -43,32 +44,46 @@ library(dplyr)
 #> 
 #>     intersect, setdiff, setequal, union
 data("RPKMdata")
+```
 
-# Preprocess data
-# Create variables representing the experimental conditions and 
-# a variable that defines the maturation stage.
+Preprocess data: create variables representing the experimental
+conditions anda variable that defines the maturation stage.
+
+``` r
 exp_cond <- names(RPKMdata)[-1]
 genes <- RPKMdata$gene_id
 dts_vars <- data.frame(exp_cond) %>%
    separate(exp_cond, into=c("Cultivar", "Stage", "Replicate"), sep="_")
+```
 
-# Transpose the gene expression matrix and add the newly derived variables.
+Transpose the gene expression matrix and add the newly derived
+variables.
+
+``` r
 dts <- t(RPKMdata[, -1])
 dts <- cbind(dts, dts_vars)
 names(dts) <- c(genes, names(dts_vars))
+```
 
-# Now, for each stage and each cultivar, calculate the mean value of the 3 replicates.
+For each stage and each cultivar, calculate the mean value of the 3
+replicates.
+
+``` r
 dts_means <- dts %>%
 group_by(Cultivar, Stage) %>%
 summarize(across(all_of(genes), mean))
 #> `summarise()` has grouped output by 'Cultivar'. You can override using the
 #> `.groups` argument.
+```
 
-# Map data onto the transcriptomic scale
+Map data onto the transcriptomic scale
+
+``` r
 MPhS_out <- MPhStimepoints(data=dts_means,
 strata_var="Cultivar", stage_var="Stage")
 ```
 
-You can also embed plots, for example:
+The results provided by the `MPhStimepoints` command can be plotted
+using the `plot` command.
 
 <img src="man/figures/README-plot-1.png" width="100%" />
