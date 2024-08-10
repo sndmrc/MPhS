@@ -16,6 +16,10 @@ knitr::opts_chunk$set(
 # MPhS
 <!-- badges: start -->
 <!-- badges: end -->
+<div style="text-align: center;">
+  <img src="path/to/image.png" width="50%" />
+</div>
+
 
 With the `MPhS` package, the user can map their transcriptomic dataset onto the Molecular Phenology Scale (MPhS) proposed by
 
@@ -34,18 +38,18 @@ pak::pak("sndmrc/MPhS")
 
 ## Example
 
-This is a basic example that shows you how to map the RPKMdata dataset (included in the package) onto the MPhS.
+This is a basic example that shows you how to map the `RPKMdata` dataset (included in the package) onto the MPhS.
 
-Load libraries and data
-```{r example}
+Load libraries and data.
+```{r step0, echo = FALSE}
 library(MPhS)
 library(tidyr)
 library(dplyr)
 data("RPKMdata")
 ```
 
-Preprocess data: create variables representing the experimental conditions anda variable that defines the maturation stage.
-```{r step1}
+Preprocess data: create variables representing the experimental conditions and a variable that defines the maturation stage.
+```{r step1, echo = FALSE}
 exp_cond <- names(RPKMdata)[-1]
 genes <- RPKMdata$gene_id
 dts_vars <- data.frame(exp_cond) %>%
@@ -53,26 +57,25 @@ dts_vars <- data.frame(exp_cond) %>%
 ```
 
 Transpose the gene expression matrix and add the newly derived variables.
-```{r step2}
+```{r step2, echo = FALSE}
 dts <- t(RPKMdata[, -1])
 dts <- cbind(dts, dts_vars)
 names(dts) <- c(genes, names(dts_vars))
 ```
 
-For each stage and each cultivar, calculate the mean value of the 3 replicates.
-```{r step3}
+For each stage and each cultivar, calculate the mean value of the 3 replicates (it can takes several minutes).
+```{r step3, echo = FALSE}
 dts_means <- dts %>%
-group_by(Cultivar, Stage) %>%
-summarize(across(all_of(genes), mean))
+   group_by(Cultivar, Stage) %>%
+   summarize(across(all_of(genes), mean))
 ```
 
-Map data onto the transcriptomic scale
-```{r step4}
-MPhS_out <- MPhStimepoints(data=dts_means,
-strata_var="Cultivar", stage_var="Stage")
+Map data onto the transcriptomic scale using the `MPhStimepoints` command.
+```{r step4, echo = FALSE}
+MPhS_out <- MPhStimepoints(data=dts_means, strata_var="Cultivar", stage_var="Stage")
 ```
 
-The results provided by the `MPhStimepoints` command can be plotted using the `plot` command.
+The object `MPhS_out` command can be plotted using the `plot` command.
 
 ```{r plot, echo = FALSE}
 p <- plot(MPhS_out)

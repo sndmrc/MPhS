@@ -6,6 +6,12 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
+<div style="text-align: center;">
+
+<img src="path/to/image.png" width="50%" />
+
+</div>
+
 With the `MPhS` package, the user can map their transcriptomic dataset
 onto the Molecular Phenology Scale (MPhS) proposed by
 
@@ -26,64 +32,35 @@ pak::pak("sndmrc/MPhS")
 
 ## Example
 
-This is a basic example that shows you how to map the RPKMdata dataset
+This is a basic example that shows you how to map the `RPKMdata` dataset
 (included in the package) onto the MPhS.
 
-Load libraries and data
+Load libraries and data.
 
-``` r
-library(MPhS)
-library(tidyr)
-library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
-data("RPKMdata")
-```
+    #> 
+    #> Attaching package: 'dplyr'
+    #> The following objects are masked from 'package:stats':
+    #> 
+    #>     filter, lag
+    #> The following objects are masked from 'package:base':
+    #> 
+    #>     intersect, setdiff, setequal, union
 
 Preprocess data: create variables representing the experimental
-conditions anda variable that defines the maturation stage.
-
-``` r
-exp_cond <- names(RPKMdata)[-1]
-genes <- RPKMdata$gene_id
-dts_vars <- data.frame(exp_cond) %>%
-   separate(exp_cond, into=c("Cultivar", "Stage", "Replicate"), sep="_")
-```
+conditions and a variable that defines the maturation stage.
 
 Transpose the gene expression matrix and add the newly derived
 variables.
 
-``` r
-dts <- t(RPKMdata[, -1])
-dts <- cbind(dts, dts_vars)
-names(dts) <- c(genes, names(dts_vars))
-```
-
 For each stage and each cultivar, calculate the mean value of the 3
-replicates.
+replicates (it can takes several minutes).
 
-``` r
-dts_means <- dts %>%
-group_by(Cultivar, Stage) %>%
-summarize(across(all_of(genes), mean))
-#> `summarise()` has grouped output by 'Cultivar'. You can override using the
-#> `.groups` argument.
-```
+    #> `summarise()` has grouped output by 'Cultivar'. You can override using the
+    #> `.groups` argument.
 
-Map data onto the transcriptomic scale
+Map data onto the transcriptomic scale using the `MPhStimepoints`
+command.
 
-``` r
-MPhS_out <- MPhStimepoints(data=dts_means,
-strata_var="Cultivar", stage_var="Stage")
-```
-
-The results provided by the `MPhStimepoints` command can be plotted
-using the `plot` command.
+The object `MPhS_out` command can be plotted using the `plot` command.
 
 <img src="man/figures/README-plot-1.png" width="100%" />
