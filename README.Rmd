@@ -16,8 +16,22 @@ knitr::opts_chunk$set(
 # MPhS
 <!-- badges: start -->
 <!-- badges: end -->
-<div style="text-align: center;">
-  <img src="man/figures/logo.png" width="50%" />
+
+<div style="display: flex; align-items: center;">
+  <!-- Figure on the right -->
+  <div style="flex: 1; text-align: right;">
+    <img src="man/figures/logo.png" alt="Logo" style="max-width: 100%; height: auto;">
+  </div>
+  <!-- Text on the left -->
+  <div style="flex: 1; text-align: left; padding-left: 20px;">
+    <p>
+    With the `MPhS` package, the user can map their transcriptomic dataset onto the Molecular Phenology Scale (MPhS) proposed by
+
+    Tornielli GB, Sandri M, Fasoli M, Amato A, Pezzotti M, Zuccolotto P, Zenoni S (2023) 
+    A molecular phenology scale of grape berry development. Horticulture Research, Volume 10, Issue 5:uhad048.
+    [doi:10.1093/hr/uhad048](https://academic.oup.com/hr/article/10/5/uhad048/7077841)
+    </p>
+  </div>
 </div>
 
 
