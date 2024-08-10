@@ -5,9 +5,9 @@
 
 <!-- badges: start -->
 <!-- badges: end -->
-<table border="0" cellpadding="0" cellspacing="0">
+<table style="border: none; border-collapse: collapse; width: 100%;">
 <tr>
-<td>
+<td style="border: none; padding: 8px;">
 
 With the `MPhS` package, the user can map their transcriptomic dataset
 onto the Molecular Phenology Scale (MPhS) proposed by
@@ -17,8 +17,7 @@ Zenoni S (2023) A molecular phenology scale of grape berry development.
 Horticulture Research, Volume 10, Issue 5:uhad048.
 <a href="https://academic.oup.com/hr/article/10/5/uhad048/7077841">doi:10.1093/hr/uhad048</a>
 </td>
-<!-- Figure on the left -->
-<td>
+<td style="border: none; padding: 8px;">
 <img src="man/figures/logo.png" alt="Logo">
 </td>
 </tr>
