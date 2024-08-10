@@ -8,7 +8,7 @@
 
 <div style="text-align: center;">
 
-<img src="path/to/image.png" width="50%" />
+<img src="man/figures/logo.png" width="50%" />
 
 </div>
 
