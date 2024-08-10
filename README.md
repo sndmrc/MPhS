@@ -45,14 +45,6 @@ Load libraries and data.
 library(MPhS)
 library(tidyr)
 library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
 data("RPKMdata")
 ```
 
@@ -82,8 +74,6 @@ replicates (it can takes several minutes).
 dts_means <- dts %>%
    group_by(Cultivar, Stage) %>%
    summarize(across(all_of(genes), mean))
-#> `summarise()` has grouped output by 'Cultivar'. You can override using the
-#> `.groups` argument.
 ```
 
 Map data onto the transcriptomic scale using the `MPhStimepoints`
