@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 <!-- badges: end -->
-<table>
+<table border="0">
 <tr>
 <td>
 
@@ -41,30 +41,63 @@ This is a basic example that shows you how to map the `RPKMdata` dataset
 
 Load libraries and data.
 
-    #> 
-    #> Attaching package: 'dplyr'
-    #> The following objects are masked from 'package:stats':
-    #> 
-    #>     filter, lag
-    #> The following objects are masked from 'package:base':
-    #> 
-    #>     intersect, setdiff, setequal, union
+``` r
+library(MPhS)
+library(tidyr)
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+data("RPKMdata")
+```
 
 Preprocess data: create variables representing the experimental
 conditions and a variable that defines the maturation stage.
 
+``` r
+exp_cond <- names(RPKMdata)[-1]
+genes <- RPKMdata$gene_id
+dts_vars <- data.frame(exp_cond) %>%
+   separate(exp_cond, into=c("Cultivar", "Stage", "Replicate"), sep="_")
+```
+
 Transpose the gene expression matrix and add the newly derived
 variables.
+
+``` r
+dts <- t(RPKMdata[, -1])
+dts <- cbind(dts, dts_vars)
+names(dts) <- c(genes, names(dts_vars))
+```
 
 For each stage and each cultivar, calculate the mean value of the 3
 replicates (it can takes several minutes).
 
-    #> `summarise()` has grouped output by 'Cultivar'. You can override using the
-    #> `.groups` argument.
+``` r
+dts_means <- dts %>%
+   group_by(Cultivar, Stage) %>%
+   summarize(across(all_of(genes), mean))
+#> `summarise()` has grouped output by 'Cultivar'. You can override using the
+#> `.groups` argument.
+```
 
 Map data onto the transcriptomic scale using the `MPhStimepoints`
 command.
 
+``` r
+MPhS_out <- MPhStimepoints(data=dts_means, strata_var="Cultivar", stage_var="Stage")
+```
+
 The object `MPhS_out` command can be plotted using the `plot` command.
+
+``` r
+p <- plot(MPhS_out)
+print(p)
+```
 
 <img src="man/figures/README-plot-1.png" width="100%" />
