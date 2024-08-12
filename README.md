@@ -82,7 +82,8 @@ command.
 MPhS_out <- MPhStimepoints(data=dts_means, strata_var="Cultivar", stage_var="Stage")
 ```
 
-The object `MPhS_out` command can be plotted using the `plot` command.
+The `MPhS_out` object can be used to visualize the position of the
+samples on the transcriptomic scale.
 
 ``` r
 p <- plot(MPhS_out)

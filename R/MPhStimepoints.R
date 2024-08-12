@@ -43,7 +43,7 @@ MPhStimepoints <- function(data, strata_var, stage_var, scaling_type="scale", ge
   
   PCscores$timepoint <- 
     MPhS_time_pts(PCscores, t(MPhSpts[, c("x1","x2","x3")]), MPhSpts$timepoint)
-  names_PCscores <- names(PCscores)
+  names_PCscores <- c(paste0("PC", MPhSpcs), "timepoint")
 
   strata <- data[, strata_var, drop=F]  
   PCscores <- cbind(PCscores, strata, data[, stage_var])
