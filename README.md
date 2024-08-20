@@ -23,6 +23,29 @@ Horticulture Research, Volume 10, Issue 5:uhad048.
 </tr>
 </table>
 
+## Introduction
+
+The Molecular Phenology Scale (MPhS) allowed the alignment of
+time-series fruit samples proving to be a complementary method for
+mapping the progression of grape berry development with higher detail
+compared to classic time- or phenotype-based approaches.
+
+The proposed pipeline could be potentially extended and successfully
+applied to other fruit species, provided they have some basic
+requirements: (i) a relatively frequent sampling covering the
+time-series transcriptomic changes during fruit development with high
+detail; (ii) the availability of expression data from diverse growing
+conditions and genotypes allowing the phenology scale to be
+representative of the general development of the fruit of the species;
+(iii) a reliable and well annotated reference genome to compute the
+expression data.
+
+The existence of these conditions ensured the successful implementation
+of our MPhS for the grapevine berry phenological classification, that we
+foresee will help coping with challenges such as those raised by climate
+change, allowing the precise mapping of the berry developmental
+progression.
+
 ## Installation
 
 You can install the development version of MPhS from
