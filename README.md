@@ -32,12 +32,12 @@ compared to classic time- or phenotype-based approaches.
 
 The proposed pipeline could be potentially extended and successfully
 applied to other fruit species, provided they have some basic
-requirements: (i) a relatively frequent sampling covering the
+requirements: <br> (i) a relatively frequent sampling covering the
 time-series transcriptomic changes during fruit development with high
-detail; (ii) the availability of expression data from diverse growing
-conditions and genotypes allowing the phenology scale to be
+detail; <br> (ii) the availability of expression data from diverse
+growing conditions and genotypes allowing the phenology scale to be
 representative of the general development of the fruit of the species;
-(iii) a reliable and well annotated reference genome to compute the
+<br> (iii) a reliable and well annotated reference genome to compute the
 expression data.
 
 The existence of these conditions ensured the successful implementation
