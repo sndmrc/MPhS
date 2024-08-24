@@ -16,6 +16,7 @@
 #'   \item{smooth_data_scores}{Smoothed data of Tornielli et al. (2023) projected onto the PCA space}
 #'   \item{MPhSpcs}{A numeric vector of PC numbers (1, 2, and 5)}
 #'   \item{MPhSpts}{A data frame with columns \code{x1},\code{x2}, and \code{x3} (the PCA scores), and the column \code{timepoint} (the MPhS timepoint)}
+#'   \item{MPhSpts}{A data frame with columns \code{v1} (12X.v1 VIT code) and \code{v3} (12X.v2 VCOST.v3)}
 #' }
 #' @examples
 #' data(MPhSdata)
