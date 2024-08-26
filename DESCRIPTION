@@ -1,7 +1,7 @@
 Package: MPhS
 Type: Package
 Title: A molecular phenology scale of grape berry development
-Version: 0.1.1
+Version: 0.1.2
 Author: Marco Sandri [aut, cre] (<https://orcid.org/0000-0002-1422-5695>), Paola Zuccolotto [aut] (<https://orcid.org/0000-0003-4399-7018>)
 Maintainer: Marco Sandri <sandri.marco@gmail.com>
 Description: Contains data and code to accompany  the article 

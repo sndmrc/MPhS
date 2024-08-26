@@ -4,14 +4,34 @@
 \alias{MPhSscores}
 \title{Project data onto the MPhS subspace}
 \usage{
-MPhSscores(data, scaling_type = "scale", gene_keyword = "VIT_")
+MPhSscores(data, scaling_type = "scale", geneID = "VIT")
 }
 \arguments{
 \item{data}{numeric data frame.}
 
 \item{scaling_type}{character, type of scaling of gene expressions. Available options: \code{none}, \code{scale} (default), \code{means_SDs}.}
 
-\item{gene_keyword}{character, a keyword used to identify all the columns of \code{data} that refers to gene expression (default \code{"VIT_"})}
+\item{geneID}{character, the name of the format of gene codes that the function supports.
+Available options: \code{VIT} (the V1 annotation format, default), \code{VitVi} (the V3 annotation format):
+\itemize{
+\item \strong{v1 format (e.g., "VIT_01s0011g01230")}: This format is used in the V1 annotation of the grapevine genome. The gene code is structured as follows:
+\itemize{
+\item "VIT": A prefix indicating the species (Vitis vinifera).
+\item "_": A separator underscore.
+\item "01s": Indicates the chromosome number, where "01" is the chromosome number, followed by "s" to denote a scaffold.
+\item "0011": Denotes the scaffold or contig number within the chromosome.
+\item "g01230": Indicates the gene number within the scaffold or contig, with "g" as a prefix followed by a zero-padded numeric identifier.
+}
+\item \strong{v3 format (e.g., "Vitvi03g000100")}: This format is used in the V3 annotation of the grapevine genome. The gene code is structured as follows:
+\itemize{
+\item "Vitvi": A prefix derived from the species name (Vitis vinifera) with a consistent capitalization pattern.
+\item "03": Indicates the chromosome number as a two-digit value.
+\item "g": A separator denoting the start of the gene identifier.
+\item "000100": A zero-padded gene identifier within the chromosome.
+}
+}
+
+The \code{geneID} parameter allows the function to accurately recognize and handle grapevine gene identifiers according to the specific V1 and V3 genome annotation formats.}
 }
 \value{
 A list.
