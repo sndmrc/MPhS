@@ -12,7 +12,7 @@ MPhSscores(data, scaling_type = "scale", geneID = "VIT")
 \item{scaling_type}{character, type of scaling of gene expressions. Available options: \code{none}, \code{scale} (default), \code{means_SDs}.}
 
 \item{geneID}{character, the name of the format of gene codes that the function supports.
-Available options: \code{VIT} (the V1 annotation format, default), \code{VitVi} (the V3 annotation format):
+Available options: \code{VIT} (the V1 annotation format, default), \code{Vitvi} (the V3 annotation format):
 \itemize{
 \item \strong{v1 format (e.g., "VIT_01s0011g01230")}: This format is used in the V1 annotation of the grapevine genome. The gene code is structured as follows:
 \itemize{

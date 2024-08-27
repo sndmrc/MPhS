@@ -6,7 +6,7 @@
 #' @param stage_var, character, the name of the variable defining fruit development (stage)
 #' @param scaling_type character, type of scaling of gene expressions. Available options: \code{"none"}, \code{"scale"} (default), \code{"means_SDs"}.
 #' @param geneID character, the name of the format of gene codes that the function supports. 
-#' Available options: \code{VIT} (the V1 annotation format, default), \code{VitVi} (the V3 annotation format):
+#' Available options: \code{VIT} (the V1 annotation format, default), \code{Vitvi} (the V3 annotation format):
 #' 
 #' - **v1 format (e.g., "VIT_01s0011g01230")**: This format is used in the V1 annotation of the grapevine genome. The gene code is structured as follows:
 #'   - "VIT": A prefix indicating the species (Vitis vinifera).

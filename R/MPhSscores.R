@@ -4,7 +4,7 @@
 #' @param data numeric data frame.
 #' @param scaling_type character, type of scaling of gene expressions. Available options: \code{none}, \code{scale} (default), \code{means_SDs}.
 #' @param geneID character, the name of the format of gene codes that the function supports. 
-#' Available options: \code{VIT} (the V1 annotation format, default), \code{VitVi} (the V3 annotation format):
+#' Available options: \code{VIT} (the V1 annotation format, default), \code{Vitvi} (the V3 annotation format):
 #' 
 #' - **v1 format (e.g., "VIT_01s0011g01230")**: This format is used in the V1 annotation of the grapevine genome. The gene code is structured as follows:
 #'   - "VIT": A prefix indicating the species (Vitis vinifera).
@@ -38,19 +38,35 @@ MPhSscores <- function(data, scaling_type="scale", geneID="VIT") {
   pca_rot_matrix <- MPhSdata$pca$rotation
   
   # Conversion from VIT to VitVi
-  if (geneID=="VitVi") {
-     idx <- match(names(data), MPhSdata$v1v3$v3)    
-     if (length(idx)>0) {
-       names(data) <- MPhSdata$v1v3$v1[idx]
-     } else {
-       stop("The gene IDs used in your dataset do not contain the prefix 'VitVi'.")      
-     }
+  if (geneID=="Vitvi") {
+    find_gene_cols <- grepl("Vitvi", names(data))
+    if (sum(find_gene_cols)==0) stop("The gene IDs used in the dataset do not contain the prefix 'VitVi'.")
+    X <- data[, find_gene_cols]     
+    filt1 <- names(X) %in% MPhSdata$v1v3$v3
+    X <- X[, filt1]
+    idx1 <- match(names(X), MPhSdata$v1v3$v3)
+    idx1 <- idx1[!is.na(idx1)]
+    if (sum(idx1)>0) {
+      names(X) <- MPhSdata$v1v3$v1[idx1]
+    } else {
+      stop("I cannot find any match between the gene IDs in the dataset and those in the conversion table.")            
+    }
+  } else if (geneID=="VIT") {
+    # Filtering: Retaining only columns that contain gene expression data
+    find_gene_cols <- grepl("VIT_", names(data))
+    if (sum(find_gene_cols)==0) stop("The gene IDs used in the dataset do not contain the prefix 'VIT'.")
+    X <- data[, find_gene_cols]    
+  }
+  filt2 <- apply(X, 2, function(x) all(x==0))
+  n2 <- sum(filt2)
+  if (n2==1) {
+    warning(paste0(n2," gene was removed because it has zero expression levels across all samples."))
+  } else if (n2>1) {
+    warning(paste0(n2," genes were removed because they have zero expression levels across all samples."))
   }
   
-  # Filtering: Retaining only columns that contain gene expression data
-  find_gene_cols <- grepl("VIT_", names(data))
-  X <- data[, find_gene_cols]
-
+  X <- X[, !filt2]
+  
   # Gene scaling 
   X <- gene_scaling(X, scaling_type=scaling_type,
                     means=MPhSdata$means, sds=MPhSdata$sds)      
@@ -65,13 +81,13 @@ MPhSscores <- function(data, scaling_type="scale", geneID="VIT") {
   gene_names_MPhS <- gene_names_MPhS[filt_genes_MPhS]
   idx <- match(gene_names_MPhS, names(X))
   X <- X[, idx]
-
+  
   # Filtering: Retain only genes found in X
   pca_rot_matrix <- pca_rot_matrix[filt_genes_MPhS, ]
-
+  
   # Applying PCA: Projecting the data onto the principal component subspace  
   scores <- as.matrix(X) %*% as.matrix(pca_rot_matrix)
-
+  
   out <- list(scores=scores, no_genes=ncol(X))
   return(out)
 }
