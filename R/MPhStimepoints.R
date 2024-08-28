@@ -64,8 +64,8 @@ MPhStimepoints <- function(data, strata_var, stage_var, scaling_type="scale", ge
   names(PCscores) <- c(names_PCscores, strata_var, stage_var)
   PCscores$strata <- as.character(interaction(as.list(strata), sep=" - "))
 
-  out <- list(PCscores=PCscores, no_genes=scores$no_genes, no_MPhS_pts=no_pts, 
-              strata_var=strata_var, stage_var=stage_var)
+  out <- list(PCscores=PCscores, no_genes=scores$no_genes, data=scores$data, 
+              no_MPhS_pts=no_pts, strata_var=strata_var, stage_var=stage_var)
   class(out) <- c("MPhStimepoints", class(out))
   return(out)
 }

@@ -39,9 +39,11 @@ MPhSscores <- function(data, scaling_type="scale", geneID="VIT") {
   
   # Conversion from VIT to VitVi
   if (geneID=="Vitvi") {
+    # Filtering: Retaining only columns that contain gene expression data
     find_gene_cols <- grepl("Vitvi", names(data))
     if (sum(find_gene_cols)==0) stop("The gene IDs used in the dataset do not contain the prefix 'VitVi'.")
-    X <- data[, find_gene_cols]     
+    X <- data[, find_gene_cols]
+    # Matching V3 to V1 annotation
     filt1 <- names(X) %in% MPhSdata$v1v3$v3
     X <- X[, filt1]
     idx1 <- match(names(X), MPhSdata$v1v3$v3)
@@ -64,12 +66,7 @@ MPhSscores <- function(data, scaling_type="scale", geneID="VIT") {
   } else if (n2>1) {
     warning(paste0(n2," genes were removed because they have zero expression levels across all samples."))
   }
-  
   X <- X[, !filt2]
-  
-  # Gene scaling 
-  X <- gene_scaling(X, scaling_type=scaling_type,
-                    means=MPhSdata$means, sds=MPhSdata$sds)      
   
   # Filtering: Retain only genes found in MPhSdata dataset
   gene_names_MPhS <- names(MPhSdata$means)  
@@ -79,8 +76,12 @@ MPhSscores <- function(data, scaling_type="scale", geneID="VIT") {
   # Reorder X columns as in MPhSdata
   filt_genes_MPhS <- gene_names_MPhS %in% names(X)  
   gene_names_MPhS <- gene_names_MPhS[filt_genes_MPhS]
-  idx <- match(gene_names_MPhS, names(X))
-  X <- X[, idx]
+  idx_ord <- match(gene_names_MPhS, names(X))
+  X <- X[, idx_ord]
+  
+  # Gene scaling 
+  X <- gene_scaling(X, scaling_type=scaling_type,
+                    means=MPhSdata$means, sds=MPhSdata$sds)   
   
   # Filtering: Retain only genes found in X
   pca_rot_matrix <- pca_rot_matrix[filt_genes_MPhS, ]
@@ -88,7 +89,7 @@ MPhSscores <- function(data, scaling_type="scale", geneID="VIT") {
   # Applying PCA: Projecting the data onto the principal component subspace  
   scores <- as.matrix(X) %*% as.matrix(pca_rot_matrix)
   
-  out <- list(scores=scores, no_genes=ncol(X))
+  out <- list(scores=scores, no_genes=ncol(X), data=X)
   return(out)
 }
 
