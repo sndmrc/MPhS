@@ -63,6 +63,11 @@ library(dplyr)
 data("RPKMdata")
 ```
 
+The `MPhStimepoints` command, which maps data to the molecular phenology scale, requires an input dataframe organized with samples as rows and genes as columns, with the following characteristics: <br>
+- expression values for each gene must be in separate columns; <br>
+- additional columns must be included for experimental conditions and maturation stages;<br>
+- each column representing gene expression levels must be named using its gene ID (either V1 or V3 annotation). 
+
 Preprocess data: create variables representing the experimental conditions and a variable that defines the maturation stage.
 ```{r step1, results="hide", warning=FALSE, message=FALSE}
 exp_cond <- names(RPKMdata)[-1]
