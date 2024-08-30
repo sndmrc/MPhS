@@ -71,8 +71,8 @@ columns must be included for experimental conditions and maturation
 stages;<br> - each column representing gene expression levels must be
 named using its gene ID (either V1 or V3 annotation).
 
-Preprocess data: create variables representing the experimental
-conditions and a variable that defines the maturation stage.
+Create variables representing the experimental conditions and a variable
+that defines the maturation stage.
 
 ``` r
 exp_cond <- names(RPKMdata)[-1]
