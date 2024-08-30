@@ -50,7 +50,9 @@ pak::pak("sndmrc/MPhS")
 ## Example
 
 This is a basic example that shows you how to map the `RPKMdata` dataset
-(included in the package) onto the MPhS.
+(included in the package) onto the MPhS.<br> For more information about
+this dataset, please see the RPKMdata help documentation by using
+`?RPKMdata`.
 
 Load libraries and data.
 
