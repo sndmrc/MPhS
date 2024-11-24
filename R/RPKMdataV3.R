@@ -1,7 +1,7 @@
-#' A dataset with V3 gene annotation containing RPKM expression data.
+#' An example dataset with V3 gene annotation containing RPKM expression data.
 #'
 #' @author G.B. Tornielli, M. Sandri, M. Fasoli, A. Amato, M. Pezzotti, P. Zuccolotto and S. Zenoni (\email{sandri.marco@gmail.com})
-#' @description In this file, there are all the objects required for projecting a new dataset onto the MPhS.
+#' @description An unpublished dataset containing expression (RPKM data) levels of 43,664 genes for Corvina grape, measured at two time points (T0 and T1) with three biological replicates.
 #' @references Unpublished
 #' @usage data(RPKMdataV3)
 #' @format 
