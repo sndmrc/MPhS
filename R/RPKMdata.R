@@ -1,7 +1,7 @@
 #' An example dataset with V1 gene annotation containing RPKM expression data.
 #'
 #' @author G.B. Tornielli, M. Sandri, M. Fasoli, A. Amato, M. Pezzotti, P. Zuccolotto and S. Zenoni (\email{sandri.marco@gmail.com})
-#' @description An unpublished dataset containing expression (RPKM data) levels of 29,971 genes for Sangiovese nad Passerina grapes, measured at four time points (Pea size, Touch, Soft, and Harvest) and T1) with three biological replicates.
+#' @description A dataset containing expression (RPKM data) levels of 29,971 genes for Sangiovese nad Passerina grapes, measured at four time points (Pea size, Touch, Soft, and Harvest) with three biological replicates.
 #' @references G.B. Tornielli, M. Sandri, M. Fasoli, A. Amato, M. Pezzotti, P. Zuccolotto and S. Zenoni. 
 #' A molecular phenology scale of grape berry development. 
 #' Horticulture Research, 2023, 10: uhad048

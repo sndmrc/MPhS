@@ -25,7 +25,7 @@ A data frame with 29971 rows and 25 columns.
 data(RPKMdata)
 }
 \description{
-An unpublished dataset containing expression (RPKM data) levels of 29,971 genes for Sangiovese nad Passerina grapes, measured at four time points (Pea size, Touch, Soft, and Harvest) and T1) with three biological replicates.
+A dataset containing expression (RPKM data) levels of 29,971 genes for Sangiovese nad Passerina grapes, measured at four time points (Pea size, Touch, Soft, and Harvest) with three biological replicates.
 }
 \examples{
 data(RPKMdata)
