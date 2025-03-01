@@ -59,12 +59,12 @@ MPhSscores <- function(data, scaling_type="scale", geneID="VIT") {
     if (sum(find_gene_cols)==0) stop("The gene IDs used in the dataset do not contain the prefix 'VIT'.")
     X <- data[, find_gene_cols]    
   }
-  filt2 <- apply(X, 2, function(x) all(x==0))
+  filt2 <- apply(X, 2, function(x) length(unique(x))==1)
   n2 <- sum(filt2)
   if (n2==1) {
-    warning(paste0(n2," gene was removed because it has zero expression levels across all samples."))
+    warning(paste0(n2," gene was removed because it has constant expression levels across all samples."))
   } else if (n2>1) {
-    warning(paste0(n2," genes were removed because they have zero expression levels across all samples."))
+    warning(paste0(n2," genes were removed because they have constant expression levels across all samples."))
   }
   X <- X[, !filt2]
   
