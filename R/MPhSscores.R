@@ -63,18 +63,18 @@ MPhSscores <- function(data, scaling_type="scale", geneID="VIT") {
   filt2 <- apply(X, 2, function(x) any(is.na(x)))
   n2 <- sum(filt2)
   if (n2==1) {
-    warning(paste0(n2," gene was removed because it has missing expression levels across all samples."))
+    warning(paste0(n2," gene was removed because it had one or more missing expression levels."))
   } else if (n2>1) {
-    warning(paste0(n2," genes were removed because they have missing expression levels across all samples."))
+    warning(paste0(n2," genes were removed because they had one or more missing expression levels."))
   }
   X <- X[, !filt2]  
   # Remove genes with zero variance
   filt3 <- apply(X, 2, function(x) length(unique(x))==1)
   n3 <- sum(filt3)
   if (n3==1) {
-    warning(paste0(n3," gene was removed because it has constant expression levels across all samples."))
+    warning(paste0(n3," gene was removed because it had constant expression levels across all samples."))
   } else if (n2>1) {
-    warning(paste0(n3," genes were removed because they have constant expression levels across all samples."))
+    warning(paste0(n3," genes were removed because they had constant expression levels across all samples."))
   }
   X <- X[, !filt3]
 
