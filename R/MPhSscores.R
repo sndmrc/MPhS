@@ -69,7 +69,7 @@ MPhSscores <- function(data, scaling_type="scale", geneID="VIT") {
   }
   X <- X[, !filt2]
   # Remove genes with NAs
-  filt3 <- apply(X, 2, function(x) sum(is.na(x)))
+  filt3 <- apply(X, 2, function(x) any(is.na(x)))
   n3 <- sum(filt3)
   if (n3==1) {
     warning(paste0(n3," gene was removed because it has missing expression levels across all samples."))
