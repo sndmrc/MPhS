@@ -59,6 +59,7 @@ MPhSscores <- function(data, scaling_type="scale", geneID="VIT") {
     if (sum(find_gene_cols)==0) stop("The gene IDs used in the dataset do not contain the prefix 'VIT'.")
     X <- data[, find_gene_cols]    
   }
+  # Remove genes with zero variance
   filt2 <- apply(X, 2, function(x) length(unique(x))==1)
   n2 <- sum(filt2)
   if (n2==1) {
@@ -67,6 +68,15 @@ MPhSscores <- function(data, scaling_type="scale", geneID="VIT") {
     warning(paste0(n2," genes were removed because they have constant expression levels across all samples."))
   }
   X <- X[, !filt2]
+  # Remove genes with NAs
+  filt3 <- apply(X, 2, function(x) sum(is.na(x)))
+  n3 <- sum(filt3)
+  if (n3==1) {
+    warning(paste0(n3," gene was removed because it has missing expression levels across all samples."))
+  } else if (n2>1) {
+    warning(paste0(n3," genes were removed because they have missing expression levels across all samples."))
+  }
+  X <- X[, !filt3]  
   
   # Filtering: Retain only genes found in MPhSdata dataset
   gene_names_MPhS <- names(MPhSdata$means)  
